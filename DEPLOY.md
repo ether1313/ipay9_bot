@@ -10,12 +10,13 @@
 
 ### 1. 初始化 Fly.io 应用（如果还没有）
 
+在项目根目录（包含 `fly.toml` 和 `Dockerfile` 的目录）执行：
+
 ```bash
-cd /Users/choward/Desktop/TELEGRAM\ BOT/ace96_bot
 fly launch
 ```
 
-如果提示是否使用现有的 `fly.toml`，选择 `Yes`。
+若提示是否使用现有的 `fly.toml`，选择 **Yes**。
 
 ### 2. 创建数据持久化 Volume
 
@@ -33,21 +34,22 @@ fly volumes create ace96_bot_data --size 1 --region sin
 
 ### 3. 设置环境变量
 
-设置 Telegram Bot Token 和其他配置：
+设置 Telegram Bot Token 和可选配置（通过 `fly secrets set`，不会写入代码仓库）：
 
 ```bash
 # 设置 Bot Token（必需）
 fly secrets set BOT_TOKEN="你的bot_token"
 
-# 设置 Telegram Channel（可选）
-fly secrets set TELEGRAM_CHANNEL="https://t.me/your_channel"
-
-# 设置 URLs（可选）
-fly secrets set FREE_SPIN_URL="https://ace96au.com/RFACE96AUBOT9"
-fly secrets set FREE_CREDIT_URL="https://ace96au.com/RFACE96AUBOT9"
+# 可选：覆盖频道或链接（不设置则使用 config.py 中的默认值）
+# fly secrets set TELEGRAM_CHANNEL="https://t.me/你的频道"
+# fly secrets set FREE_SPIN_URL="https://..."
+# fly secrets set FREE_CREDIT_URL="https://..."
+# fly secrets set DATA_DIR="/data"
 ```
 
 ### 4. 部署应用
+
+在项目根目录执行（Fly 会使用当前目录的 `Dockerfile` 构建镜像）：
 
 ```bash
 fly deploy
@@ -91,13 +93,13 @@ fly dashboard
 
 ## 注意事项
 
-1. **数据持久化**: `user_stats.json` 和 `admins.json` 文件现在保存在 Fly.io volume (`/data`) 中，数据会持久化保存，不会因为容器重启而丢失。
+1. **数据持久化**: 机器人通过 `DATA_DIR`（默认 `/data`）读写数据。`fly.toml` 中已将 volume `ace96_bot_data` 挂载到 `/data`，因此 `user_stats.json` 和 `admins.json` 会持久化保存，容器重启不会丢失。
 
-2. **环境变量**: 所有敏感信息（如 BOT_TOKEN）应该通过 `fly secrets set` 设置，不要提交到代码仓库。
+2. **环境变量**: 敏感信息（如 `BOT_TOKEN`）必须用 `fly secrets set` 设置。其他配置（如 `TELEGRAM_CHANNEL`、`FREE_SPIN_URL`、`FREE_CREDIT_URL`）可在 `config.py` 中查看默认值，需要覆盖时用 `fly secrets set`。
 
-3. **区域选择**: 在 `fly.toml` 中的 `primary_region` 可以改为你需要的区域（如 `sin` 新加坡、`hkg` 香港、`nrt` 东京等）。
+3. **构建与运行**: 部署使用项目根目录的 `Dockerfile`（Python 3.11）和 `fly.toml`，进程命令为 `python bot.py`。区域在 `fly.toml` 的 `primary_region`（当前为 `sin` 新加坡），可改为 `hkg`、`nrt` 等。
 
-4. **监控**: 使用 `fly logs` 监控 bot 运行状态，确保 bot 正常运行。
+4. **监控**: 使用 `fly logs` 监控运行状态，确保 bot 正常。
 
 ## 故障排查
 
