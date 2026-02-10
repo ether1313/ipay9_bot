@@ -121,7 +121,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Create custom keyboard (bottom buttons) - only menu options
     keyboard = [
         [
-            KeyboardButton(text="GET FREE SPIN ON ACE96AU 🎰"),
+            KeyboardButton(text="GET FREE SPIN ON IPAY9 🎰"),
             KeyboardButton(text="HOT GAME TIPS CHANNEL 🍒")
         ]
     ]
@@ -136,15 +136,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def handle_get_free_spin(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle GET FREE SPIN button click"""
-    promo_text = """Welcome to ACE96AU, where the rewards start instantly. 🔥
+    promo_text = """Welcome to IPAY9, Your Daily Slot & Mini-Game Destination 🇦🇺
 
-🎁 Simply sign up to claim your complimentary A$96.00 bonus — no deposit needed.
-🎰 Return every day to spin our prize wheel for your chance to win up to $888 in daily prizes.
-💰 Boost your play with a 100% first-deposit match to double your funds from the start.
+🎉 IPAY9 is now open for new players with free rewards and bonus opportunities.
+🎰 Start with a 50% welcome bonus, a $10 free trial, and enjoy daily 50% special bonuses.
+💰 Deposit bonuses are available up to $199.99.
 
-👑 Enjoy regular VIP treats,
-🧧 Unlock weekly rewards up to $960 & experience straight forward bonuses with premium entertainment.
-💎 At ACE96AU, we offer top-tier fun where Australian players come to win. 🚀"""
+🇦🇺 Enjoy free credits, daily bonuses, and special promotions designed for new and regular players.
+✨ Start easily with a low minimum deposit and boost your balance with welcome and daily rewards.
+🎮 No Complicated Steps — just straightforward online fun and consistent bonuses.
+
+🔥🚀 Log in today and explore the latest games, including the popular Plinko mini-game at iPAY9."""
     
     # Create inline buttons (vertical layout - each button on its own row)
     inline_keyboard = [
@@ -167,14 +169,15 @@ async def handle_get_free_spin(update: Update, context: ContextTypes.DEFAULT_TYP
 
 async def handle_hot_game_tips(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle HOT GAME TIPS CHANNEL button click"""
-    channel_text = """ACE96AU: Big Rewards. No Nonsense. 🎉
+    channel_text = """🇦🇺 Play Smart. Enjoy More. Only at IPAY9 🎰
 
-🎁 Sign-Up Bonus: A$96.00 FREE. No Deposit.
-🎂 Daily Chance: Spin. Win up to $131. Every Day.
-💰 First Deposit: We match 100%. Double Your Money.
-👑 VIP Perks: Daily treats & weekly rewards (up to $800).
+🎁 Free credits and daily bonus rewards available.
+🎉 Welcome bonuses and weekly promotions.
+💰 Low minimum deposit to get started.
+🎯 Try fun games like Slots and Plinko for quick entertainment.
+🔒 Fair play, clear terms, and friendly support.
 
-⚡️ Straightforward bonuses, premium games. That's the ACE96AU way. Join the winning side."""
+🇦🇺 Join IPAY9 today and check your bonus page — rewards may already be waiting for you."""
     
     # Create inline buttons (vertical layout - each button on its own row)
     inline_keyboard = [
@@ -773,7 +776,7 @@ def main():
     application.add_error_handler(error_handler)
     
     # Start Bot
-    logger.info("Ace96 Promo Bot is starting...")
+    logger.info("IPAY9 Promo Bot is starting...")
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
